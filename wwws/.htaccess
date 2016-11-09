@@ -1,0 +1,65 @@
+Header set Access-Control-Allow-Origin "*"
+Header set X-Frame-Options DENY
+
+<FilesMatch "\.(ini|)$">
+  order allow,deny
+  deny from all
+</FilesMatch>
+
+# Setting some variables used for includes.
+SetEnv PHP_INI_SCAN_DIR /ip/admrcsc/wwws/
+SetEnv INCLUDE_PATH /ip/admrcsc/wwws/_includes/
+SetEnv PHP_PATH /ip/admrcsc/wwws/_php/
+SetEnv XML_PATH /ip/admrcsc/wwws/_xml/
+SetEnv PREFIX /
+SetEnv HOME /ip/admrcsc
+SetEnv HOME_PATH https://admrcsc.webtest.iu.edu
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTP_HOST} !^admrcsc.webtest.iu.edu [NC]
+RewriteRule ^(.*)$ https://admrcsc.webtest.iu.edu/$1 [R=301,L]
+
+
+
+# Parse .html files as .php
+AddHandler x-httpd-php .html
+
+# Turn off Apache's indexing
+Options -Indexes
+
+# Set the default file for any folder to be the index.html file. 
+DirectoryIndex index.html
+
+#Video
+AddType video/mp4                                   f4v f4p m4v mp4
+AddType video/ogg                                   ogv
+AddType video/webm                                  webm
+AddType video/x-flv                                 flv
+
+#Web fonts
+AddType application/font-woff                       woff
+AddType application/font-woff2                      woff2
+AddType application/vnd.ms-fontobject               eot
+
+# Browsers usually ignore the font media types and simply sniff
+# the bytes to figure out the font type.
+# http://mimesniff.spec.whatwg.org/#matching-a-font-type-pattern
+
+# Chrome however, shows a warning if any other media types are used
+# for the following two font types.
+
+AddType application/x-font-ttf                      ttc ttf
+AddType font/opentype                               otf
+
+AddType image/svg+xml                               svg svgz
+
+AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+
+# Set Error Documents
+ErrorDocument 400 https://admrcsc.webtest.iu.edu/error/400.html
+ErrorDocument 401 /error/401.html
+ErrorDocument 403 https://admrcsc.webtest.iu.edu/error/403.html
+ErrorDocument 404 /error/404.html
+ErrorDocument 500 https://admrcsc.webtest.iu.edu/error/500.html
