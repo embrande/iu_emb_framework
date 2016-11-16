@@ -1,10 +1,4 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title><?php $title ?></title>
-</head>
-
-<body>
-</body>
-</html>
+<?php
+	//in the comments, define variables and template name
+	//define title, code to not include or to include, 
+?>
