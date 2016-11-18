@@ -28,6 +28,9 @@
 		);
 
 	}
+	enqueue_function('function_register_javascript_header');
+
+	
 	/*
 		-Get and register footer javascript folders
 	*/
