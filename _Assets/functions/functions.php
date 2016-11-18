@@ -1,5 +1,9 @@
 <?php 
 
+	/* Global Variables:
+
+		$HEADER_JAVASCRIPT
+
 	/*
 		-Get and register chunks from the chunks folder
 	*/
