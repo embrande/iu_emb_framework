@@ -22,8 +22,6 @@
 	*/
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,4 +38,4 @@
 
 </head>
  
-<body id="index" class="home">
+<body id="index" class="home body">
