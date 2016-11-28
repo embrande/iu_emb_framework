@@ -61,5 +61,25 @@
 	}
 
 
+	//enqueues functions
+	function enqueue_functions($name, $dependant_name){
+
+		if(isset($GLOBALS['UTILITY_FUNCTIONS'])){
+			$UTILITY_FUNCTIONS = $GLOBALS['UTILITY_FUNCTIONS']; 
+		}
+
+		if($dependant_name){
+			echo "eric";
+		}
+
+	}
+	//executes functions
+	function execute_functions(){
+
+		//loop through array set in enqueue funcitons and execute them;
+
+	}
+
+
 
 ?>

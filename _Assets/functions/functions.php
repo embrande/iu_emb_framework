@@ -1,13 +1,16 @@
 <?php 
+	
+	require_once("functions_classes.php");
 
 	/* Global Variables:
 
 		$HEADER_JAVASCRIPT
 
+	*/
+
 	/*
 		-Get and register chunks from the chunks folder
 	*/
-
 
 	/*
 		-Get and register header javascript and css specific folders
@@ -28,21 +31,15 @@
 		);
 
 	}
-	enqueue_function('function_register_javascript_header');
+	enqueue_functions('function_register_javascript_header', '');
 
 	
-	/*
-		-Get and register footer javascript folders
-	*/
+
 
 
 	/*
-		- BEGIN OUTPUT BUFFERING
-		- get header
-		- check template -> get information from commented section at top of page -> get content
-		- get footer
-		- END OUTPUT BUFFERING
+		Executes functions from array
 	*/
-
+	execute_functions();
 
 ?>
