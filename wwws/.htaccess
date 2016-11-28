@@ -30,7 +30,7 @@ AddHandler x-httpd-php .html
 Options -Indexes
 
 # Set the default file for any folder to be the index.html file. 
-DirectoryIndex index.html
+DirectoryIndex index.php index.html
 
 #Video
 AddType video/mp4                                   f4v f4p m4v mp4
