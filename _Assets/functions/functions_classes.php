@@ -14,58 +14,26 @@
 
 	}
 
-	//register javascript for the header
-	class class_register_javascript_header
-	{
+	class shared_register_class {
 
-		var $name;
-		var $file_path;
-		var $dependant_name;
-		var $header_javascript_array;
 
-		public function set_variables($name, $file_path, $dependant_name, $local){
 
-			if( ($local == 'false') || ($this == '') ){
-				$this->local = $local;
-			}else{
-				$this->local = 'true';
-			}
-
-			$this->name = $name;
-			$this->file_path = $file_path;
-			$this->dependant_name = $dependant_name;
-			$this->header_javascript_array = '';
-
-			$this->set_file_path();
-			//sort_registered_javascript();
-			
-		}
-
-		function add_to_javascript_array(){
-
-		}
-
-		public function set_file_path(){
+		public function set_file_path($global_var){
 
 			//get the file path, and based off of a php value set it to the js folder and concatinate it to what the array the user sent
-			global $JAVASCRIPT_FILE_PATH;
+			$gb = $GLOBALS[$global_var];
+
+			echo $this->name;
 
 			if($this->local == 'true'){
-				$this->file_path = $JAVASCRIPT_FILE_PATH . $this->file_path;
+				$this->file_path = $gb . $this->file_path;
 			}else{
 				$this->file_path = $this->file_path;
 			}
 
 		}
 
-
-		function create_add_to_array(){
-
-			
-			
-		}
-
-		function sort_registered_javascript_and_compare(){
+		public function sort_registered_and_compare(){
 
 			//sort array and compare to global array to see if it's already in it by name.
 			//then, based on dependencies, place it into variable. If none, place at end.
@@ -91,6 +59,40 @@
 
 			
 		}
+
+
+	}
+
+	//register javascript for the header
+	class class_register_javascript_header extends shared_register_class 
+	{
+
+		var $name;
+		var $file_path;
+		var $dependant_name;
+		var $header_javascript_array;
+
+		function __construct(){
+
+		}
+
+		public function set_variables($name, $file_path, $dependant_name, $local){
+
+			if( ($local == 'false') || ($this == '') ){
+				$this->local = $local;
+			}else{
+				$this->local = 'true';
+			}
+
+			$this->name = $name;
+			$this->file_path = $file_path;
+			$this->dependant_name = $dependant_name;
+			$this->header_javascript_array = '';
+
+			parent::set_file_path('JAVASCRIPT_FILE_PATH');
+			
+		}
+
 
 	}
 
