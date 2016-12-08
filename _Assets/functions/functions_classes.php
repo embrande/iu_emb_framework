@@ -4,6 +4,7 @@
 		Global variables used in classes
 	*/
 	$GLOBALS['FUN_QUEUE'] = [];
+	$GLOBALS['HEADER_JAVASCRIPT'] = [];
 
 
 	function register_javascript_header($name, $file_path, $dependant_name, $local){
@@ -23,37 +24,34 @@
 			//get the file path, and based off of a php value set it to the js folder and concatinate it to what the array the user sent
 			$gb = $GLOBALS[$global_var];
 
-			echo $this->name;
 
 			if($this->local == 'true'){
-				$this->file_path = $gb . $this->file_path;
+				return $gb . $this->file_path;
 			}else{
-				$this->file_path = $this->file_path;
+				return $this->file_path;
 			}
 
 		}
 
-		public function sort_registered_and_compare(){
+		public function sort_registered_and_compare($global_var, $array_name, $dependant_on, $value_of_passed ){
 
 			//sort array and compare to global array to see if it's already in it by name.
 			//then, based on dependencies, place it into variable. If none, place at end.
 
-			global $FUN_QUEUE;
+			$gb = $GLOBALS[$global_var];
 
 			//place global array into a local variable
-			$this->header_javascript_array = $HEADER_JAVASCRIPT;
+			$global_array = $gb;
 
-			if(isset($GLOBALS['FUN_QUEUE']) && ($GLOBALS['FUN_QUEUE'] !== '')){
+			if(isset($global_array) && (!empty($global_array)) ){
 
-				//If there are already values inside of the Global variable.
-				$utility_functions = $GLOBALS['FUN_QUEUE']; 
+				//if the global variable is both set and does not equal no value
+				print_r( $global_array );
 
 			}else{
 
-				echo 'here';
-
-				//if there isn't, place at the end of the array
-				$GLOBALS['FUN_QUEUE'][] = ['script_name' => $script_name, 'script_path' => $script_path]; 
+				//if the global variable is either not set or empty
+				echo 'for fears';
 
 			}
 
@@ -89,8 +87,16 @@
 			$this->dependant_name = $dependant_name;
 			$this->header_javascript_array = '';
 
-			parent::set_file_path('JAVASCRIPT_FILE_PATH');
+			$this->file_path = parent::set_file_path('JAVASCRIPT_FILE_PATH');
+
+			self::sort_registered_and_compare_child();
 			
+		}
+
+		public function sort_registered_and_compare_child(){
+
+			parent::sort_registered_and_compare('HEADER_JAVASCRIPT', $this->name, $this->dependant_name, $this->file_path);
+
 		}
 
 
