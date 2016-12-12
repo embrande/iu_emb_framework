@@ -11,7 +11,8 @@
 	*/
 	$eric_test = [];
 
-	$eric_test[] = array("name" => "jquery", )
+	$eric_test[] = array("name" => "window_scroll", "location" => "/window_scroll/default.js", "dependant_on" => "jquery", "local_file" => "true");
+	$eric_test[] = array("name" => "jquery", "location" => "http://something.or.another", "dependant_on" => "javascript_library", "local_file" => "false");
 	/*
 		here
 	*/
@@ -57,24 +58,12 @@
 			if( isset($dependant_on) && (!empty($dependant_on)) ){
 
 				//if a dependent is listed
-
-				echo $dependant_on . " " . $global_var . "\r\n";
-
-
-				$printing_value = self::in_array_r($dependant_on, $global_var);
+				$printing_value = self::in_array_dependentent_on_r($dependant_on, $global_var, $dependant_variable = "dependant_on");
 				print_r( $printing_value );
-				/*
-				if(!self::in_array_r($dependant_on, $global_var)) {
-			     	echo "true";
-				}else{
-					echo "false";
-				}
-				*/
-
 
 			}else{
 
-				//does not have a dependent
+				//does not have a dependent value
 
 			}
 
@@ -97,21 +86,24 @@
 		}
 
 
-		public function in_array_r($needle, $haystack) {
+		public function in_array_dependentent_on_r($needle, $haystack, $dependant_variable) {
 			
 			$gb = $GLOBALS[$haystack];
 			$global_array = $gb;
+			$return_value = "";
 
 			global $eric_test;
+
+	
+			foreach($eric_test as $key => $value){
 			
-			foreach($eric_test as $element){
-				if(in_array($needle, $element)){
-					return $element;
-				}else{
-					return "false";
+				//loop through array. 
+				if( $eric_test[$key][$dependant_variable] == $needle){
+					//Find array key dependant on and compare it to needle. If there is a match return array.
+					return $key;
 				}
 			}
-			
+
 		}
 
 	}
