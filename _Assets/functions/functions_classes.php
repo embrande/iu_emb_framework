@@ -6,6 +6,16 @@
 	$GLOBALS['FUN_QUEUE'] = [];
 	$GLOBALS['HEADER_JAVASCRIPT'] = [];
 
+	/*
+		delete
+	*/
+	$eric_test = [];
+
+	$eric_test[] = array("name" => "jquery", )
+	/*
+		here
+	*/
+
 
 	function register_javascript_header($name, $file_path, $dependant_name, $local){
 
@@ -43,6 +53,33 @@
 			//place global array into a local variable
 			$global_array = $gb;
 
+			//see if dependant name is already inside of the array
+			if( isset($dependant_on) && (!empty($dependant_on)) ){
+
+				//if a dependent is listed
+
+				echo $dependant_on . " " . $global_var . "\r\n";
+
+
+				$printing_value = self::in_array_r($dependant_on, $global_var);
+				print_r( $printing_value );
+				/*
+				if(!self::in_array_r($dependant_on, $global_var)) {
+			     	echo "true";
+				}else{
+					echo "false";
+				}
+				*/
+
+
+			}else{
+
+				//does not have a dependent
+
+			}
+
+
+			/*
 			if(isset($global_array) && (!empty($global_array)) ){
 
 				//if the global variable is both set and does not equal no value
@@ -54,10 +91,28 @@
 				echo 'for fears';
 
 			}
+			*/
 
 			
 		}
 
+
+		public function in_array_r($needle, $haystack) {
+			
+			$gb = $GLOBALS[$haystack];
+			$global_array = $gb;
+
+			global $eric_test;
+			
+			foreach($eric_test as $element){
+				if(in_array($needle, $element)){
+					return $element;
+				}else{
+					return "false";
+				}
+			}
+			
+		}
 
 	}
 
