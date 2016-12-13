@@ -11,7 +11,7 @@
 	*/
 	$eric_test = [];
 
-	$eric_test[] = array("name" => "window_scroll", "location" => "/window_scroll/default.js", "dependant_on" => "jquery", "local_file" => "true");
+	$eric_test[] = array("name" => "window_scroll", "location" => "/window_scroll/default.js", "dependant_on" => "sss", "local_file" => "true");
 	$eric_test[] = array("name" => "jquery", "location" => "http://something.or.another", "dependant_on" => "javascript_library", "local_file" => "false");
 	/*
 		here
@@ -44,7 +44,7 @@
 
 		}
 
-		public function sort_registered_and_compare($global_var, $array_name, $dependant_on, $value_of_passed ){
+		public function sort_registered_and_compare($global_var, $array_name, $dependant_on, $value_of_passed, $local_file ){
 
 			//sort array and compare to global array to see if it's already in it by name.
 			//then, based on dependencies, place it into variable. If none, place at end.
@@ -59,7 +59,12 @@
 
 				//if a dependent is listed
 				$printing_value = self::in_array_dependentent_on_r($dependant_on, $global_var, $dependant_variable = "dependant_on");
-				print_r( $printing_value );
+
+				// print_r ( $global_var . " " . $array_name . " " . $dependant_on . " " . $value_of_passed . " " . $local_file );
+
+				//insert script after returned key
+				self::place_into_array($printing_value, $global_var, $inserted_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file));
+
 
 			}else{
 
@@ -68,41 +73,56 @@
 			}
 
 
-			/*
-			if(isset($global_array) && (!empty($global_array)) ){
-
-				//if the global variable is both set and does not equal no value
-				print_r( $global_array );
-
-			}else{
-
-				//if the global variable is either not set or empty
-				echo 'for fears';
-
-			}
-			*/
-
 			
 		}
 
-
+		/*
+			Variables to be passed to use this should be the variable you're looking for; 
+			the array you're looking in; and the dependant variable you're looking at (this should be an array for an associative multidimensional array.
+		*/
 		public function in_array_dependentent_on_r($needle, $haystack, $dependant_variable) {
 			
+
+
 			$gb = $GLOBALS[$haystack];
 			$global_array = $gb;
+			$global_array_count = count($global_array);
 			$return_value = "";
 
-			global $eric_test;
-
-	
-			foreach($eric_test as $key => $value){
-			
-				//loop through array. 
-				if( $eric_test[$key][$dependant_variable] == $needle){
-					//Find array key dependant on and compare it to needle. If there is a match return array.
-					return $key;
+			if( $global_array_count != 0){
+				foreach($global_array as $key => $value){
+				
+					//loop through array. 
+					if( $global_array[$key][$dependant_variable] == $needle){
+						//Find array key dependant on and compare it to needle. If there is a match return array.
+						return $key;
+					}else{
+						$return_value = $key;
+					}
 				}
+
+				//this should only be reached if there is no match found. This will return the last value if It can't find anything.
+				return $return_value;
+
+			}else{
+				return $global_array_count;
 			}
+
+		}
+
+
+		public function place_into_array($index, $array, $inserted_array){
+			
+			$gb = $GLOBALS[$array];
+			$global_array = $gb;
+
+			// if($index == 0){$index = 1;}else{$index=$index;}
+
+			$res = array_splice($global_array, );
+
+			$GLOBALS[$array] = $res;
+
+			print_r($GLOBALS[$array]);
 
 		}
 
@@ -140,9 +160,10 @@
 			
 		}
 
+
 		public function sort_registered_and_compare_child(){
 
-			parent::sort_registered_and_compare('HEADER_JAVASCRIPT', $this->name, $this->dependant_name, $this->file_path);
+			parent::sort_registered_and_compare('HEADER_JAVASCRIPT', $this->name, $this->dependant_name, $this->file_path, $this->local);
 
 		}
 

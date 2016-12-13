@@ -21,7 +21,7 @@
 		register_javascript_header(
 			'jquery',
 			'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',
-			'',
+			'javascript',
 			'false'
 		);
 
