@@ -60,10 +60,8 @@
 				//if a dependent is listed
 				$printing_value = self::in_array_dependentent_on_r($dependant_on, $global_var, $dependant_variable = "dependant_on");
 
-				// print_r ( $global_var . " " . $array_name . " " . $dependant_on . " " . $value_of_passed . " " . $local_file );
-
-				//insert script after returned key
 				self::place_into_array($printing_value, $global_var, $inserted_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file));
+				
 
 
 			}else{
@@ -88,6 +86,7 @@
 			$global_array = $gb;
 			$global_array_count = count($global_array);
 			$return_value = "";
+
 
 			if( $global_array_count != 0){
 				foreach($global_array as $key => $value){
@@ -116,13 +115,22 @@
 			$gb = $GLOBALS[$array];
 			$global_array = $gb;
 
-			// if($index == 0){$index = 1;}else{$index=$index;}
 
-			$res = array_splice($global_array, );
+			print_r ( $global_array );
 
-			$GLOBALS[$array] = $res;
+			if( empty($global_array) ){
+				$GLOBALS[$array][] = $inserted_array;
+			}else{
 
-			print_r($GLOBALS[$array]);
+				if($index == 0){$index = 1;}else{$index=$index;}
+
+				$res = array_slice($global_array, 0, $index, true);
+
+				print_r($res);
+
+				$GLOBALS[$array] = $res;
+
+			}
 
 		}
 

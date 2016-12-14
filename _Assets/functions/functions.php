@@ -28,7 +28,28 @@
 		register_javascript_header(
 			'name',
 			'global.js',
-			'jquery',
+			'jquery_test',
+			''
+		);
+
+		register_javascript_header(
+			'name3',
+			'darivative.js',
+			'jquery_test',
+			''
+		);
+
+		register_javascript_header(
+			'name4',
+			'gooooo.js',
+			'jquery_test',
+			''
+		);
+
+		register_javascript_header(
+			'name5',
+			'globagule.js',
+			'name3',
 			''
 		);
 
