@@ -67,6 +67,7 @@
 			}else{
 
 				//does not have a dependent value
+				$GLOBALS[$global_array][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
 
 			}
 
@@ -111,24 +112,41 @@
 
 
 		public function place_into_array($index, $array, $inserted_array){
+
+			//passed values: 
+			//THE INDEX of where the dependant is at. If it is a 0, then the dependant either doesn't work or it at the first position.
 			
 			$gb = $GLOBALS[$array];
 			$global_array = $gb;
 
 
-			print_r ( $global_array );
-
 			if( empty($global_array) ){
 				$GLOBALS[$array][] = $inserted_array;
 			}else{
 
-				if($index == 0){$index = 1;}else{$index=$index;}
 
-				$res = array_slice($global_array, 0, $index, true);
+				
+				$GLOBALS[$array][] = $inserted_array;
 
-				print_r($res);
+				/*
 
-				$GLOBALS[$array] = $res;
+
+					Below is code that is trying to place the passed array into the global variable AFTER its dependant on. 
+					I was having trouble using the array_slice. I couldn't get the array to cut after the passed index value which is where the dependant name is. 
+					This way the developer can place script on any page without having to worry if the script will be after its dependant. Also, so the developer
+					doesn't have to make sure on the functions page that it's in the correct order.
+
+
+				*/
+
+				// if($index == 0){$index = 1;}else{$index=$index;}
+
+				// // $res = array_slice($global_array, 0, $index, true);
+				// $res = array_splice($global_array, $index, 0, true);
+
+				// print_r($GLOBALS[$array]);
+
+				// $GLOBALS[$array] = $res;
 
 			}
 
@@ -166,6 +184,7 @@
 
 			self::sort_registered_and_compare_child();
 			
+
 		}
 
 

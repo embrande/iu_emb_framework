@@ -28,7 +28,7 @@
 		register_javascript_header(
 			'name',
 			'global.js',
-			'jquery_test',
+			'jquery',
 			''
 		);
 
@@ -65,5 +65,8 @@
 	*/
 	function_register_javascript_header();
 	execute_functions();
+
+	
+			print_r($GLOBALS['HEADER_JAVASCRIPT']);
 
 ?>
