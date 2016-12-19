@@ -6,16 +6,6 @@
 	$GLOBALS['FUN_QUEUE'] = [];
 	$GLOBALS['HEADER_JAVASCRIPT'] = [];
 
-	/*
-		delete
-	*/
-	$eric_test = [];
-
-	$eric_test[] = array("name" => "window_scroll", "location" => "/window_scroll/default.js", "dependant_on" => "sss", "local_file" => "true");
-	$eric_test[] = array("name" => "jquery", "location" => "http://something.or.another", "dependant_on" => "javascript_library", "local_file" => "false");
-	/*
-		here
-	*/
 
 
 	function register_javascript_header($name, $file_path, $dependant_name, $local){
@@ -65,9 +55,13 @@
 
 
 			}else{
-
+				
 				//does not have a dependent value
-				$GLOBALS[$global_array][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+				if( count($GLOBALS[$global_var]) == 0 ){
+					$GLOBALS[$global_var][0] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+				}else{
+					$GLOBALS[$global_var][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+				}
 
 			}
 
@@ -201,11 +195,55 @@
 	
 
 	//enqueues functions
-	function enqueue_functions($name, $dependant_name){
+	function enqueue_functions($name, $file_path, $dependant_name, $local){
 
-		//adds functions to queue 
+		$javascript_file = new enqueue_functions_class;
+
+		$javascript_file->set_variables($name, $file_path, $dependant_name, $local);
 
 	}
+
+	class enqueue_functions_class extends shared_register_class
+	{
+
+		var $name;
+		var $file_path;
+		var $dependant_name;
+		var $header_javascript_array;
+
+		function __construct(){
+
+		}
+
+		public function set_variables($name, $file_path, $dependant_name, $local){
+
+			if( ($local == 'false') || ($this == '') ){
+				$this->local = $local;
+			}else{
+				$this->local = 'true';
+			}
+
+			$this->name = $name;
+			$this->file_path = $file_path;
+			$this->dependant_name = $dependant_name;
+			$this->header_javascript_array = '';
+
+			self::sort_registered_and_compare_child();
+			
+
+		}
+
+
+		public function sort_registered_and_compare_child(){
+
+			parent::sort_registered_and_compare('FUN_QUEUE', $this->name, $this->dependant_name, $this->file_path, $this->local);
+
+		}
+
+	}
+
+
+
 	//executes functions
 	function execute_functions(){
 

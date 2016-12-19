@@ -54,7 +54,7 @@
 		);
 
 	}
-	enqueue_functions('function_register_javascript_header', '');
+	enqueue_functions('function_register_javascript_header', '', '', '');
 
 	
 
@@ -62,11 +62,14 @@
 
 	/*
 		Executes functions from array
+		This should be the last function.
 	*/
-	function_register_javascript_header();
+	// function_register_javascript_header();
 	execute_functions();
 
+
+	// print_r($GLOBALS['HEADER_JAVASCRIPT']);
+
 	
-			print_r($GLOBALS['HEADER_JAVASCRIPT']);
 
 ?>
