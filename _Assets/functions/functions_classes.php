@@ -245,10 +245,36 @@
  
  
     //executes functions
-    function execute_functions(){
+    function execute_functions($variable){
  
+        $local_var = $GLOBALS[$variable];
+
+
         //loop through array set in enqueue funcitons and execute them;
+        foreach( $local_var as $item){
+
+            $function_name = $item['name'];
+
+            $function_name();
+
+        }
  
+    }
+
+
+    function print_script($variable){
+
+        $local_var = $GLOBALS[$variable];
+
+
+        foreach ( $local_var as $item ){
+
+            echo '<script type="text/javascript" src="' . $item['location'] . '"></script>';
+            echo "\n";
+
+        }
+
+
     }
  
  
