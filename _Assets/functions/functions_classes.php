@@ -27,7 +27,7 @@
  
  
             if($this->local == 'true'){
-                return $gb . $this->file_path;
+                return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . $gb . $this->file_path;
             }else{
                 return $this->file_path;
             }

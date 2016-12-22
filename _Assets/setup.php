@@ -19,6 +19,7 @@
 	//css
 	$GLOBALS['CSS_FILE_PATH'] = dirname(__FILE__) . "/css/";
 
+
 	
 
 

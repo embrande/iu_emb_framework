@@ -6,7 +6,6 @@
 	require_once ("setup.php");
 
 	
-	
 
 
 ?>
