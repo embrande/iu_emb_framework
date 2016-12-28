@@ -277,6 +277,32 @@
 
     }
  
+
+
+    class pull_apart_file_for_call 
+    {
+
+
+        //pull apart name, add to 'defined_passed variable' and pull that
+
+
+    }
  
+
+    class header_call extends pull_apart_file_for_call
+    {
+        
+    } 
  
+
+    class navigation_call extends pull_apart_file_for_call
+    {
+        
+    } 
+ 
+
+    class footer_call extends pull_apart_file_for_call
+    {
+        
+    } 
 ?>
