@@ -1,7 +1,6 @@
 <?php 
-     
     require_once("functions_classes.php");
- 
+    echo $template_name;
     /* Global Variables:
  
         $HEADER_JAVASCRIPT

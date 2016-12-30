@@ -279,6 +279,25 @@
  
 
 
+
+
+    function template_define(){
+
+
+        echo $template_name;
+
+
+
+    }
+
+
+
+
+
+
+
+
+
     class pull_apart_file_for_call 
     {
 

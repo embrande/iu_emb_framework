@@ -21,9 +21,12 @@
 
 
 	
+	
 
 
 	require_once("functions/functions.php");
+
+	template_define();
 
 
 

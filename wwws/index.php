@@ -3,9 +3,11 @@
 	//DETERMINE THE TEMPLATE
 	//SET TITLE
 	
-	require_once ("setup.php");
+	$template_name = "index";
 
 	
+	require_once ("setup.php");
+
 
 
 ?>
