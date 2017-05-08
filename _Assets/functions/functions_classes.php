@@ -39,35 +39,69 @@
             //sort array and compare to global array to see if it's already in it by name.
             //then, based on dependencies, place it into variable. If none, place at end.
  
-            $gb = $GLOBALS[$global_var];
- 
             //place global array into a local variable
-            $global_array = $gb;
+            $global_array = $GLOBALS[$global_var];
  
             //see if dependant name is already inside of the array
             if( isset($dependant_on) && (!empty($dependant_on)) ){
- 
-                //if a dependent is listed
-                $printing_value = self::in_array_dependentent_on_r($dependant_on, $global_var, $dependant_variable = "dependant_on");
- 
-                self::place_into_array($printing_value, $global_var, $inserted_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file));
+
+                foreach ($global_array as $gb) {
+                   
+                    if($gb['name'] == $dependant_on){
+                        // the dependant name is a name of a "name" in the array
+
+                        $key = array_search($gb, $global_array) + 1;
+                        $insert_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+
+                        $GLOBALS[$global_array] = $this->array_insert( $global_array, $insert_array, $key );
+
+                    }
+
+                }
+
                  
- 
- 
             }else{
-                 
+
                 //does not have a dependent value
                 if( count($GLOBALS[$global_var]) == 0 ){
+                    // nothing in global array
                     $GLOBALS[$global_var][0] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
                 }else{
-                    $GLOBALS[$global_var][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+                    // loop through the variable - make sure the array name isn't already in the global array
+                    foreach ($global_array as $gb) {
+                        if($gb['name'] !== $array_name){
+                            $GLOBALS[$global_var][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
+                            // print_r($GLOBALS[$global_var]);
+                            // echo "<br /><br />";
+                        }
+                    }
                 }
- 
-            }
- 
- 
-             
+            }  
         }
+        /*
+         * Insert an array into another array before/after a certain key
+         *
+         * @param array $array The initial array
+         * @param array $pairs The array to insert
+         * @param string $key The certain key
+         * @param string $position Wether to insert the array before or after the key
+         * @return array
+         */
+        public function array_insert( $array, $pairs, $key, $position = 'after' ) {
+            $key_pos = array_search( $key, array_keys( $array ) );
+            if ( 'after' == $position )
+                $key_pos++;
+            if ( false !== $key_pos ) {
+                $result = array_slice( $array, 0, $key_pos );
+                $result = array_merge( $result, $pairs );
+                $result = array_merge( $result, array_slice( $array, $key_pos ) );
+            }
+            else {
+                $result = array_merge( $array, $pairs );
+            }
+            return $result;
+        }
+       
  
         /*
             Variables to be passed to use this should be the variable you're looking for; 
@@ -222,7 +256,7 @@
             }else{
                 $this->local = 'true';
             }
- 
+    
             $this->name = $name;
             $this->file_path = $file_path;
             $this->dependant_name = $dependant_name;
@@ -235,9 +269,8 @@
  
  
         public function sort_registered_and_compare_child(){
- 
             parent::sort_registered_and_compare('FUN_QUEUE', $this->name, $this->dependant_name, $this->file_path, $this->local);
- 
+            // echo $this->name . "<br />" . $this->dependant_name . "<br />" . $this->file_path . "<br />" . $this->local . "<br /><br />";
         }
  
     }
@@ -283,8 +316,6 @@
 
     function template_define(){
 
-
-        echo $template_name;
 
 
 

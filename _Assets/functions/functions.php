@@ -53,6 +53,19 @@
  
     }
     enqueue_functions('function_register_javascript_header', '', '', '');
+    enqueue_functions('function_test_dep', '', 'function_register_javascript_header', '');
+    enqueue_functions('function_test_dep_2', '', 'doesnt_work', '');
+    enqueue_functions('function_test_dep_3', '', 'function_test_dep', '');
+    enqueue_functions('function_test_dep_4', '', 'function_register_javascript_header', '');
+                        print_r($GLOBALS['FUN_QUEUE']);
+                        echo "<br /><br />";
+
+
+
+
+
+
+
  
      
  
@@ -65,7 +78,7 @@
     // function_register_javascript_header();
 
     //call based on global variable
-    execute_functions('FUN_QUEUE');
+    //execute_functions('FUN_QUEUE');
  
  
     // print_r($GLOBALS['HEADER_JAVASCRIPT']);
