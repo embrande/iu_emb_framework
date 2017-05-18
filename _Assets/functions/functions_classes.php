@@ -49,11 +49,13 @@
                    
                     if($gb['name'] == $dependant_on){
                         // the dependant name is a name of a "name" in the array
-
                         $key = array_search($gb, $global_array) + 1;
                         $insert_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
 
                         $GLOBALS[$global_array] = $this->array_insert( $global_array, $insert_array, $key );
+
+                        echo $gb['name'] . "<br /><br />";
+
 
                     }
 

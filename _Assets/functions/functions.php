@@ -57,8 +57,8 @@
     enqueue_functions('function_test_dep_2', '', 'doesnt_work', '');
     enqueue_functions('function_test_dep_3', '', 'function_test_dep', '');
     enqueue_functions('function_test_dep_4', '', 'function_register_javascript_header', '');
-                        print_r($GLOBALS['FUN_QUEUE']);
-                        echo "<br /><br />";
+    // print_r($GLOBALS['FUN_QUEUE']);
+    // echo "<br /><br />";
 
 
 
