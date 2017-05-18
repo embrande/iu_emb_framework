@@ -44,20 +44,22 @@
  
             //see if dependant name is already inside of the array
             if( isset($dependant_on) && (!empty($dependant_on)) ){
-
                 foreach ($global_array as $gb) {
                    
                     if($gb['name'] == $dependant_on){
+                        echo $dependant_on;
+                        echo "<br />";
+                        echo $gb['name'];
+                        echo "<br />";
                         // the dependant name is a name of a "name" in the array
-                        $key = array_search($gb, $global_array) + 1;
+                        $key = array_search($gb, $global_array);
                         $insert_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
 
-                        $GLOBALS[$global_array] = $this->array_insert( $global_array, $insert_array, $key );
-
-                        echo $gb['name'] . "<br /><br />";
+                        print_r($this->array_insert( $global_array, $insert_array, $key ) );
 
 
                     }
+                        echo "<br />";
 
                 }
 
@@ -73,8 +75,6 @@
                     foreach ($global_array as $gb) {
                         if($gb['name'] !== $array_name){
                             $GLOBALS[$global_var][] = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
-                            // print_r($GLOBALS[$global_var]);
-                            // echo "<br /><br />";
                         }
                     }
                 }
