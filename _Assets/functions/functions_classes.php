@@ -36,8 +36,7 @@
  
         public function sort_registered_and_compare($global_var, $array_name, $dependant_on, $value_of_passed, $local_file ){
  
-            //sort array and compare to global array to see if it's already in it by name.
-            //then, based on dependencies, place it into variable. If none, place at end.
+    
  
             //place global array into a local variable
             $global_array = $GLOBALS[$global_var];
@@ -47,19 +46,16 @@
                 foreach ($global_array as $gb) {
                    
                     if($gb['name'] == $dependant_on){
-                        echo $dependant_on;
-                        echo "<br />";
-                        echo $gb['name'];
-                        echo "<br />";
+
                         // the dependant name is a name of a "name" in the array
-                        $key = array_search($gb, $global_array);
+                        $key = array_search($gb, $global_array) + 1;
                         $insert_array = array("name" => $array_name, "location" => $value_of_passed, "dependant_on" => $dependant_on, "local_file" => $local_file);
 
-                        print_r($this->array_insert( $global_array, $insert_array, $key ) );
+                        $this->array_insert( $global_array, $key, $insert_array );
+                        $GLOBALS[$global_var] = $global_array;
 
-
+                    }else{
                     }
-                        echo "<br />";
 
                 }
 
@@ -79,30 +75,40 @@
                     }
                 }
             }  
+
         }
+
         /*
-         * Insert an array into another array before/after a certain key
-         *
-         * @param array $array The initial array
-         * @param array $pairs The array to insert
-         * @param string $key The certain key
-         * @param string $position Wether to insert the array before or after the key
-         * @return array
-         */
-        public function array_insert( $array, $pairs, $key, $position = 'after' ) {
-            $key_pos = array_search( $key, array_keys( $array ) );
-            if ( 'after' == $position )
-                $key_pos++;
-            if ( false !== $key_pos ) {
-                $result = array_slice( $array, 0, $key_pos );
-                $result = array_merge( $result, $pairs );
-                $result = array_merge( $result, array_slice( $array, $key_pos ) );
-            }
-            else {
-                $result = array_merge( $array, $pairs );
-            }
-            return $result;
+            $array is the array to be modified
+            $offset is the position where we want to insert our object. It needs to be positive and within the limits given by the dimension of the array. If it is less than 0, the object will be inserted as the first element; if it is over the maximum dimension, the object will be inserted as the final element.
+            $object is the object to be inserted.
+            $replace is an optional parameter that indicates if the array element is going to be replaced. Default is false.
+        */
+        function array_insert(&$array, $offset, $object, $replace=false){
+            
+            if(is_array($array)){
+                if($replace ){
+                    if($offset<0) $offset = 0;
+                    else if($offset > count($array)-1) $offset = count($array)-1;
+                    $a1 = array_slice($array, 0, $offset);
+                    $a2 = array_slice($array, $offset+1);
+                    array_push($a1, $object);
+                    $array = array_merge($a1, $a2);
+                }else{            
+                    if($offset == 0){
+                        array_unshift($array, $object);
+                    }else if($offset >= count($array)){
+                        array_push($array, $object);
+                    }else{                
+                        $a1 = array_slice($array, 0, $offset);
+                        $a2 = array_slice($array, $offset);
+                        array_push($a1, $object);
+                        $array = array_merge($a1, $a2);
+                    }
+                }
+            }    
         }
+
        
  
         /*
@@ -183,9 +189,22 @@
         }
  
     }
+
+
+
+     
+ 
+    //enqueues functions
+    function enqueue_scripts($name, $file_path, $dependant_name, $local){
+ 
+        $file_set = new enqueue_scripts_class;
+ 
+        $file_set->set_variables($name, $file_path, $dependant_name, $local);
+ 
+    }
  
     //register javascript for the header
-    class class_register_javascript_header extends shared_register_class 
+    class enqueue_scripts_class extends shared_register_class 
     {
  
         var $name;
@@ -204,7 +223,7 @@
             }else{
                 $this->local = 'true';
             }
- 
+            
             $this->name = $name;
             $this->file_path = $file_path;
             $this->dependant_name = $dependant_name;
@@ -233,9 +252,9 @@
     //enqueues functions
     function enqueue_functions($name, $file_path, $dependant_name, $local){
  
-        $javascript_file = new enqueue_functions_class;
+        $function_set = new enqueue_functions_class;
  
-        $javascript_file->set_variables($name, $file_path, $dependant_name, $local);
+        $function_set->set_variables($name, $file_path, $dependant_name, $local);
  
     }
  
@@ -272,7 +291,6 @@
  
         public function sort_registered_and_compare_child(){
             parent::sort_registered_and_compare('FUN_QUEUE', $this->name, $this->dependant_name, $this->file_path, $this->local);
-            // echo $this->name . "<br />" . $this->dependant_name . "<br />" . $this->file_path . "<br />" . $this->local . "<br /><br />";
         }
  
     }
@@ -297,7 +315,7 @@
     }
 
 
-    function print_script($variable){
+    function execute_scripts($variable){
 
         $local_var = $GLOBALS[$variable];
 

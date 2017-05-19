@@ -1,0 +1,4 @@
+
+ENQUEUE A FUNCTION - Uses a functions that also sorts javascript and css
+
+enqueue_functions('function_name', 'file_path', 'dependant_function_name', 'local_true_or_false');
