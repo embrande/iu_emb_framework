@@ -24,10 +24,11 @@
  
             //get the file path, and based off of a php value set it to the js folder and concatinate it to what the array the user sent
             $gb = $GLOBALS[$global_var];
- 
+            $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
+            echo "<br />" . $root . "<br />";
  
             if($this->local == 'true'){
-                return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . $gb . $this->file_path;
+                return "https://" . $_SERVER["HOME"] . $gb . $this->file_path;
             }else{
                 return $this->file_path;
             }
@@ -337,8 +338,6 @@
     function template_define(){
 
 
-
-
     }
 
 
@@ -375,4 +374,12 @@
     {
         
     } 
+
+    function display_template(){
+
+        echo $template_name;
+
+        echo "jeezy";
+
+    }
 ?>

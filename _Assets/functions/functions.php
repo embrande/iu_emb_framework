@@ -16,35 +16,35 @@
     */
     function function_register_javascript_header(){
  
-        register_javascript_header(
+        enqueue_scripts(
             'jquery',
             'https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js',
-            'javascript',
+            '',
             'false'
         );
  
-        register_javascript_header(
+        enqueue_scripts(
             'name',
             'global.js',
             'jquery',
             ''
         );
  
-        register_javascript_header(
+        enqueue_scripts(
             'name3',
             'darivative.js',
-            'jquery_test',
+            'name',
             ''
         );
  
-        register_javascript_header(
+        enqueue_scripts(
             'name4',
             'gooooo.js',
-            'jquery_test',
+            'name',
             ''
         );
  
-        register_javascript_header(
+        enqueue_scripts(
             'name5',
             'globagule.js',
             'name3',
@@ -58,8 +58,7 @@
     enqueue_functions('function_test_dep_3', '', 'function_test_dep', '');
     enqueue_functions('function_test_dep_4', '', 'function_register_javascript_header', '');
 
-
-
+    function_register_javascript_header();
 
 
 

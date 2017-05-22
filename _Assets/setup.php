@@ -21,13 +21,11 @@
 
 
 	
-	
-
 
 	require_once("functions/functions.php");
 
 
-
+	display_template();
 
 
 	/*
