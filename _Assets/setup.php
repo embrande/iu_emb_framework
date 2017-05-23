@@ -18,6 +18,8 @@
 	$GLOBALS['JAVASCRIPT_FILE_PATH'] = dirname(__FILE__) . "/js/";
 	//css
 	$GLOBALS['CSS_FILE_PATH'] = dirname(__FILE__) . "/css/";
+	//template global
+	$GLOBALS['template'] = dirname(__FILE__) . "/template/" . $template_name . ".php";
 
 
 	
@@ -25,14 +27,10 @@
 	require_once("functions/functions.php");
 
 
+   
 	display_template();
 
 
-	/*
-		End output buffer
-	*/
-	$ob_data = ob_get_clean();
-	echo $ob_data;
 
 
 ?>

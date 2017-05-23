@@ -9,8 +9,15 @@
 
 <body>
 	
+	<?php
 
+		/*
+			End output buffer
+		*/
+		$ob_data = ob_get_clean();
+		echo $ob_data;
 
+	?>
 
 
 </body>

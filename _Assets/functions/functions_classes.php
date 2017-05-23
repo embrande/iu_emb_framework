@@ -338,6 +338,8 @@
     function template_define(){
 
 
+        
+
     }
 
 
@@ -377,9 +379,7 @@
 
     function display_template(){
 
-        echo $template_name;
-
-        echo "jeezy";
+        echo $GLOBALS['template'];
 
     }
 ?>
