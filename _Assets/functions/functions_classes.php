@@ -21,7 +21,7 @@
  
  
         public function set_file_path($global_var){
- 
+
             //get the file path, and based off of a php value set it to the js folder and concatinate it to what the array the user sent
             $gb = $GLOBALS[$global_var];
             $root = (!empty($_SERVER['HTTPS']) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . '/';
@@ -153,7 +153,7 @@
             //passed values: 
             //THE INDEX of where the dependant is at. If it is a 0, then the dependant either doesn't work or it at the first position.
              
-            $gb = $GLOBALS[$array];
+            $gb = $GLOBALS[$array]; 
             $global_array = $gb;
  
  
@@ -379,7 +379,7 @@
 
     function display_template(){
 
-        echo $GLOBALS['template'];
+        require_once( $GLOBALS['template'] );
 
     }
 ?>
