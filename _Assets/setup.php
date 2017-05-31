@@ -18,6 +18,10 @@
 	$GLOBALS['JAVASCRIPT_FILE_PATH'] = dirname(__FILE__) . "/js/";
 	//css
 	$GLOBALS['CSS_FILE_PATH'] = dirname(__FILE__) . "/css/";
+	//header path
+	$GLOBALS['HEADER_FILE_PATH'] = dirname(__FILE__) . "/templates/header/";
+	//footer path
+	$GLOBALS['FOOTER_FILE_PATH'] = dirname(__FILE__) . "/templates/footer/";
 	//template global
 	$GLOBALS['template'] = dirname(__FILE__) . "/templates/" . $template_name . ".php";
 	//title of page 

@@ -346,36 +346,71 @@
 
 
 
+    function get_header($header_name){
+
+        new get_header_class ( $header_name );
+
+    }
+
+    function get_footer($footer_name){
+
+        new get_footer_class ( $footer_name );
+
+    }
 
 
 
 
-    class pull_apart_file_for_call 
+
+    class require_file_parts
     {
 
 
         //pull apart name, add to 'defined_passed variable' and pull that
+        function require_include_file ($global_var, $name){
+
+            require_once ( $global_var . $name . ".php" );
+        }
 
 
     }
  
 
-    class header_call extends pull_apart_file_for_call
+    class get_header_class extends require_file_parts
     {
         
+        var $header_name;
+ 
+        function __construct( $header_name ){
+            $this->header_name = $header_name;
+            self::require_include_file_child();
+        }
+
+        function require_include_file_child(){
+            parent::require_include_file( $GLOBALS['HEADER_FILE_PATH'], $this->header_name );
+        }
+
+
     } 
  
 
-    class navigation_call extends pull_apart_file_for_call
+    class get_footer_class extends require_file_parts
     {
+        
+        var $footer_name;
+ 
+        function __construct( $footer_name ){
+            $this->footer_name = $footer_name;
+            self::require_include_file_child();
+        }
+
+        function require_include_file_child(){
+            parent::require_include_file( $GLOBALS['FOOTER_FILE_PATH'], $this->footer_name );
+        }
+
         
     } 
  
-
-    class footer_call extends pull_apart_file_for_call
-    {
-        
-    } 
 
     function display_template(){
 
