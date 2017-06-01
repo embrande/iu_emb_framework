@@ -2,15 +2,14 @@
 	get_header('header_test_header');
 ?>	
 
-	<?php
+<?php
 
-		/*
-			End output buffer
-		*/
-		$ob_data = ob_get_clean();
-		echo $ob_data;
+	/*
+		End output buffer
+	*/
+	ob_end_flush();
 
-	?>
+?>
 
 
 <?php

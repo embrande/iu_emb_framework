@@ -7,11 +7,6 @@
 	 ***********/
 
 	/*
-		Begin output buffer - ends in template
-	*/
-	ob_start();
-
-	/*
 		Define file paths
 	*/
 	//javascript
